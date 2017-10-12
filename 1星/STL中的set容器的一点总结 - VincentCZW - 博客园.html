@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0068)http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>STL中的set容器的一点总结 - VincentCZW - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/bundle-blue.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/BeyondAnyTime/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/BeyondAnyTime/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/BeyondAnyTime/wlwmanifest.xml">
+<script type="text/javascript" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/encoder.js"></script><script src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/jquery.js" type="text/javascript"></script><style type="text/css"></style>  
+<script type="text/javascript">var currentBlogApp = 'BeyondAnyTime', cb_enable_mathjax=false;</script>
+<script src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div class="pagelayout">
+    
+<div class="header">
+	<div>
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/BeyondAnyTime/">VincentCZW</a>
+	</div>
+	<div>
+		
+	</div>
+</div>
+    <div id="leftmenu" class="leftcolumn">
+        
+            
+<h1 class="listtitle">导航</h1>
+<ul class="list">
+			<li class="listitem"><a id="MyLinks1_HomeLink" class="listitem" href="http://www.cnblogs.com/">博客园</a></li>
+			<li class="listitem"><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/BeyondAnyTime/">首页</a>
+			</li><li class="listitem"><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>
+			</li><li class="listitem"><a id="MyLinks1_ContactLink" accesskey="9" class="listitem" rel="nofollow" href="http://msg.cnblogs.com/send/VincentCZW">联系</a></li>
+			<li class="listitem">
+			</li><li class="listitem"><a id="MyLinks1_Admin" class="listitem" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+            <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/03/01&#39;);return false;">&lt;</a></td><td align="center">2016年4月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/05/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalTodayDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+            
+<div class="listtitle">统计</div>
+	<ul class="list">
+		<li class="listitem">随笔 - 75
+		</li><li class="listitem">文章 - 16
+		</li><li class="listitem">评论 - 368
+		</li><li class="listitem">引用 - 0
+	</li>
+</ul>
+            
+<div class="listtitle">公告</div>
+	<ul class="list">
+		<li class="listitem">
+			<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/BeyondAnyTime/">VincentCZW</a><br>园龄：<a href="http://home.cnblogs.com/u/BeyondAnyTime/" title="入园时间：2012-05-08">3年11个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/BeyondAnyTime/followers/">232</a><br>关注：<a href="http://home.cnblogs.com/u/BeyondAnyTime/followees/">8</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;c966d7ad-c498-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+	</li>
+</ul>
+            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/BeyondAnyTime/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔分类<span style="font-size:11px;font-weight:normal">(76)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/439197.html">Android(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/393483.html">C#</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/379485.html">C++(13)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/379484.html">IT小百科(13)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/381829.html">Love喜欢(2)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/383523.html">STL(6)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/380978.html">VC &amp; MFC(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/379487.html">设计模式(15)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/378782.html">数据结构与算法(24)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/425189.html">自娱自乐(1)</a>  </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">随笔档案<span style="font-size:11px;font-weight:normal">(75)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2013/07.html">2013年7月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2013/03.html">2013年3月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/12.html">2012年12月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/09.html">2012年9月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08.html">2012年8月 (15)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07.html">2012年7月 (19)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06.html">2012年6月 (9)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/05.html">2012年5月 (28)</a>  </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">文章分类<span style="font-size:11px;font-weight:normal">(11)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_2_Link_0" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/464859.html">Android(7)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_2_Link_1" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/464861.html">程序员职场生活</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_2_Link_2" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/525820.html">发展形势(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_2_Link_3" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/category/464860.html">移动产品相关(3)</a>  </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">文章档案<span style="font-size:11px;font-weight:normal">(16)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_0" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2013/10.html" rel="nofollow">2013年10月 (2)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_1" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2013/09.html" rel="nofollow">2013年9月 (2)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_2" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2013/07.html" rel="nofollow">2013年7月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_3" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2013/04.html" rel="nofollow">2013年4月 (1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_4" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2013/03.html" rel="nofollow">2013年3月 (8)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_3_Link_5" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/archives/2012/08.html" rel="nofollow">2012年8月 (2)</a>  </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">相册<span style="font-size:11px;font-weight:normal">(3)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_4_Link_0" class="listitem" href="http://www.cnblogs.com/BeyondAnyTime/gallery/381835.html" rel="nofollow">2009那一年的我(3)</a>  </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		151173
+	</li><li>
+		排名 -
+		1147
+	</li>
+</ul>
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#3403640">1. Re:STL中的set容器的一点总结</a></li>
+    <li class="recent_comment_body">纠正一下定义：<br>lower_bound(key):返回第一个大于等于key的迭代器指针<br>upper_bound(key):返回第一个大于key的迭代器指针</li>
+    <li class="recent_comment_author">--JRSmith</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07/19/2599980.html#3387674">2. Re:设计模式之建造者模式（Builder）</a></li>
+    <li class="recent_comment_body">就是策略模式加一个for循环。命令模式的有序版。</li>
+    <li class="recent_comment_author">--Tekkaman</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/10/2544105.html#3383146">3. Re:欧几里得算法求最大公约数的局限性及解决方案</a></li>
+    <li class="recent_comment_body">第三种算法判断条件太多效率并不高，反而是第一种算法效率最高，第一种算法求100000组8位整数的最大公约数耗时34ms第二种算法求100组8位整数的最大公约数耗时3ms，而且有内存泄漏的问题，对于某些......</li>
+    <li class="recent_comment_author">--回忆专用小马甲</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/27/2659163.html#3368562">4. Re:二叉树中的那些常见的面试题</a></li>
+    <li class="recent_comment_body">想问博主，你给出的【2.9 从根节点开始找到所有路径，使得路径上的节点值和为某一数值（路径不一定以叶子节点结束）】算法里的路径起点一定是根节点吗？是否可以为除根节点以外的中间结点？？？</li>
+    <li class="recent_comment_author">--郭可岩</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/04/2535305.html">1. 关于C++中的友元函数的总结(61373)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html">2. STL中的set容器的一点总结(31017)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/05/2537451.html">3. 关于C++中的虚拟继承的一些总结(23164)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/27/2659163.html">4. 二叉树中的那些常见的面试题(20175)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/23/2652696.html">5. C++中四种类型转换方式(18775)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/19/2646194.html">1. 大家赶快来说说C和C++到底有什么“奸情”吧(35)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/06/2538764.html">2. 电梯调度算法(31)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/07/2625767.html">3. 小程序员的趣味题（一）(30)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07/17/2593224.html">4. 数组中的趣味题（一）(27)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07/11/2585789.html">5. 数组循环移位中的学问(24)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/05/2537451.html">1. 关于C++中的虚拟继承的一些总结(13)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2013/03/15/2961636.html">2. 一个即将毕业的13届毕业生校招有感(9)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/09/01/2666570.html">3. C++中的操作符重载(7)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/06/08/2542315.html">4. C++中的static关键字的总结(7)</a></li><li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/27/2659163.html">5. 二叉树中的那些常见的面试题(7)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+        
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    <div class="centercolumn">
+        
+<div id="post_detail">
+<div class="singlepost">
+	<div class="posttitle">
+		<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html">STL中的set容器的一点总结</a>
+	</div>
+    <div class="postbody">
+	<div id="cnblogs_post_body"><p><span style="color: #800080; font-size: 18pt;"><strong>1.关于set</strong></span></p>
+<p><span style="font-size: 15px;">C++ STL 之所以得到广泛的赞誉，也被很多人使用，不只是提供了像vector, string, list等方便的容器，更重要的是STL封装了许多复杂的数据结构算法和大量常用数据结构操作。vector封装数组，list封装了链表，map和set封装了二叉树等，在封装这些数据结构的时候，STL按照程序员的使用习惯，以成员函数方式提供的常用操作，如：插入、排序、删除、查找等。让用户在STL使用过程中，并不会感到陌生。</span></p>
+<p><span style="font-size: 15px;">关于set，必须说明的是set关联式容器。set作为一个容器也是用来存储同一数据类型的数据类型，并且能从一个数据集合中取出数据，在set中每个元素的值都唯一，而且系统能根据元素的值自动进行排序。应该注意的是set中数元素的值不能直接被改变。<span>C++ STL中标准关联容器set, multiset, map, multimap内部采用的就是一种非常高效的平衡检索二叉树：红黑树，也成为RB树(Red-Black Tree)。RB树</span>的统计性能要好于<span>一般平衡二叉树</span><span>，所以被STL选择作为了关联容器的内部结构。</span></span></p>
+<p>&nbsp;<span style="font-size: 16px;"><strong>关于set有下面几个问题：</strong></span></p>
+<p><span style="font-size: 15px;"><strong>（1）为何map和set的插入删除效率比用其他序列容器高？</strong></span></p>
+<p><span style="font-size: 15px;">大部分人说，很简单，因为对于关联容器来说，不需要做内存拷贝和内存移动。说对了，确实如此。set容器内所有元素都是以节点的方式来存储，其节点结构和链表差不多，指向父节点和子节点。结构图可能如下：</span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　A<br>　&nbsp; / \<br>　 B C<br>　/ \ / \<br>&nbsp; D E F G</span></p>
+<p><span style="font-size: 15px;">因此插入的时候只需要稍做变换，把节点的指针指向新的节点就可以了。删除的时候类似，稍做变换后把指向删除节点的指针指向其他节点也OK了。这里的一切操作就是指针换来换去，和内存移动没有关系。</span></p>
+<p><span style="font-size: 15px;"><strong>（2）为何每次insert之后，以前保存的iterator不会失效？</strong></span></p>
+<p><span style="font-size: 15px;">iterator这里就相当于指向节点的指针，内存没有变，指向内存的指针怎么会失效呢(当然被删除的那个元素本身已经失效了)。相对于vector来说，每一次删除和插入，指针都有可能失效，调用push_back在尾部插入也是如此。因为为了保证内部数据的连续存放，iterator指向的那块内存在删除和插入过程中可能已经被其他内存覆盖或者内存已经被释放了。即使时push_back的时候，容器内部空间可能不够，需要一块新的更大的内存，只有把以前的内存释放，申请新的更大的内存，复制已有的数据元素到新的内存，最后把需要插入的元素放到最后，那么以前的内存指针自然就不可用了。特别时在和find等算法在一起使用的时候，牢记这个原则：不要使用过期的iterator。</span></p>
+<p><strong><span style="font-size: 15px;">（3）当数据元素增多时，set的插入和搜索速度变化如何？</span></strong></p>
+<p><span><span style="font-size: 15px;">如果你知道log2的关系你应该就彻底了解这个答案。在set中查找是使用二分查找，也就是说，如果有16个元素，最多需要比较4次就能找到结果，有32个元素，最多比较5次。那么有10000个呢？最多比较的次数为log10000，最多为14次，如果是20000个元素呢？最多不过15次。看见了吧，当数据量增大一倍的时候，搜索次数只不过多了1次，多了1/14的搜索时间而已。你明白这个道理后，就可以安心往里面放入元素了</span>。</span></p>
+<p><span style="font-size: 18pt;"><strong><span style="color: #800080;">2.set中常用的方法</span></strong></span></p>
+<hr>
+<p><span style="font-size: 13px;"><strong>begin()&nbsp;&nbsp;&nbsp;&nbsp; 　　 ,返回set容器的第一个元素</strong></span></p>
+<p><span style="font-size: 13px;"><strong>end() 　　　　 ,返回set容器的最后一个元素</strong></span></p>
+<p><span style="font-size: 13px;"><strong>clear()&nbsp;&nbsp; 　　&nbsp;&nbsp;&nbsp; &nbsp;,删除set容器中的所有的元素</strong></span></p>
+<p><span style="font-size: 13px;"><strong>empty() 　　　,判断set容器是否为空</strong></span></p>
+<p><span style="font-size: 13px;"><strong>max_size() 　 ,返回set容器可能包含的元素最大个数</strong></span></p>
+<p><span style="font-size: 13px;"><strong>size() 　　　　 ,返回当前set容器中的元素个数</strong></span></p>
+<p><span style="font-size: 13px;"><strong>rbegin　　　　 ,返回的值和end()相同</strong></span></p>
+<p><span style="font-size: 13px;"><strong>rend()　　　　 ,返回的值和rbegin()相同</strong></span></p>
+<p><span style="font-size: 15px;">写一个程序练一练这几个简单操作吧：</span>&nbsp;</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;f25527d2-675e-46d4-92b2-c3318e5f5d27&#39;)"><img id="code_img_closed_f25527d2-675e-46d4-92b2-c3318e5f5d27" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_f25527d2-675e-46d4-92b2-c3318e5f5d27" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;f25527d2-675e-46d4-92b2-c3318e5f5d27&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse" style="display: none;">View Code </span>
+<div id="cnblogs_code_open_f25527d2-675e-46d4-92b2-c3318e5f5d27" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;"> 9</span>     s.insert(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">10</span>     s.insert(<span style="color: #800080;">2</span><span style="color: #000000;">);
+</span><span style="color: #008080;">11</span>     s.insert(<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">12</span>     s.insert(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">13</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 的 size 值为 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.size()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">14</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 的 maxsize的值为 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.max_size()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">15</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 中的第一个元素是 ：</span><span style="color: #800000;">"</span>&lt;&lt;*s.begin()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">16</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 中的最后一个元素是:</span><span style="color: #800000;">"</span>&lt;&lt;*s.end()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">    s.clear();
+</span><span style="color: #008080;">18</span>     <span style="color: #0000ff;">if</span><span style="color: #000000;">(s.empty())
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">20</span>         cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 为空 ！！！</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">21</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">22</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 的 size 值为 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.size()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">23</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 的 maxsize的值为 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.max_size()&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">25</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</div>
+<p><span style="font-size: 15px;">运行结果：</span></p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081314362721.jpg" alt=""></p>
+<p><span style="font-size: 15px;"><span style="color: #ff0000;"><strong>小结：</strong></span>插入3之后虽然插入了一个1，但是我们发现set中最后一个值仍然是3哈，这就是set 。还要注意begin() 和 end()函数是不检查set是否为空的，使用前最好使用empty()检验一下set是否为空.</span></p>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 15px;"><strong>count()</strong> 用来查找set中某个某个键值出现的次数。这个函数在set并不是很实用，因为一个键值在set只可能出现0或1次，这样就变成了判断某一键值是否在set出现过了。</span></p>
+<p><span style="font-size: 15px;">示例代码：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;30af2b98-ad2a-444d-93a2-a2f74a1a86af&#39;)"><img id="code_img_closed_30af2b98-ad2a-444d-93a2-a2f74a1a86af" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_30af2b98-ad2a-444d-93a2-a2f74a1a86af" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;30af2b98-ad2a-444d-93a2-a2f74a1a86af&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span>
+<div id="cnblogs_code_open_30af2b98-ad2a-444d-93a2-a2f74a1a86af" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;"> 9</span>     s.insert(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">10</span>     s.insert(<span style="color: #800080;">2</span><span style="color: #000000;">);
+</span><span style="color: #008080;">11</span>     s.insert(<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">12</span>     s.insert(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">13</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 中 1 出现的次数是 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.count(<span style="color: #800080;">1</span>)&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">14</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">set 中 4 出现的次数是 ：</span><span style="color: #800000;">"</span>&lt;&lt;s.count(<span style="color: #800080;">4</span>)&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">16</span> }</pre>
+</div>
+</div>
+<p>运行结果：</p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081314471474.jpg" alt=""></p>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 15px;"><strong>equal_range()</strong> ，返回一对定位器，分别表示第一个大于或等于给定关键值的元素和&nbsp;第一个大于给定关键值的元素，这个返回值是一个pair类型，如果这一对定位器中哪个返回失败，就会等于end()的值。具体这个有什么用途我还没遇到过~~~</span></p>
+<p>示例代码：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;10d35296-b58b-4ee4-894d-3e2bdb3b01aa&#39;)"><img id="code_img_closed_10d35296-b58b-4ee4-894d-3e2bdb3b01aa" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_10d35296-b58b-4ee4-894d-3e2bdb3b01aa" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;10d35296-b58b-4ee4-894d-3e2bdb3b01aa&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span>
+<div id="cnblogs_code_open_10d35296-b58b-4ee4-894d-3e2bdb3b01aa" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator iter;
+</span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span> ; i &lt;= <span style="color: #800080;">5</span>; ++<span style="color: #000000;">i)
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">12</span> <span style="color: #000000;">        s.insert(i);
+</span><span style="color: #008080;">13</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">14</span>     <span style="color: #0000ff;">for</span>(iter = s.begin() ; iter != s.end() ; ++<span style="color: #000000;">iter)
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">16</span>         cout&lt;&lt;*iter&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">18</span>     cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">19</span>     pair&lt;<span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;::const_iterator,<span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;::const_iterator&gt;<span style="color: #000000;"> pr;
+</span><span style="color: #008080;">20</span>     pr = s.equal_range(<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">21</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">第一个大于等于 3 的数是 ：</span><span style="color: #800000;">"</span>&lt;&lt;*pr.first&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">22</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">第一个大于 3的数是 ： </span><span style="color: #800000;">"</span>&lt;&lt;*pr.second&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">23</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">24</span> }</pre>
+</div>
+</div>
+<p>运行结果：</p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081315065035.jpg" alt=""></p>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 14px;"><strong>erase(iterator)&nbsp; ,删除定位器iterator指向的值</strong></span></p>
+<p><span style="font-size: 14px;"><strong>erase(first,second),删除定位器first和second之间的值</strong></span></p>
+<p><span style="font-size: 14px;"><strong>erase(key_value),删除键值key_value的值</strong></span></p>
+<p><span style="font-size: 15px;">看看程序吧：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;0f6324cc-82d2-440d-b478-c61bd08fc607&#39;)"><img id="code_img_closed_0f6324cc-82d2-440d-b478-c61bd08fc607" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_0f6324cc-82d2-440d-b478-c61bd08fc607" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;0f6324cc-82d2-440d-b478-c61bd08fc607&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse" style="display: none;">View Code </span>
+<div id="cnblogs_code_open_0f6324cc-82d2-440d-b478-c61bd08fc607" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::const_iterator iter;
+</span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator first;
+</span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator second;
+</span><span style="color: #008080;">12</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span> ; i &lt;= <span style="color: #800080;">10</span> ; ++<span style="color: #000000;">i)
+</span><span style="color: #008080;">13</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">        s.insert(i);
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">16</span>     <span style="color: #008000;">//</span><span style="color: #008000;">第一种删除</span>
+<span style="color: #008080;">17</span> <span style="color: #000000;">    s.erase(s.begin());
+</span><span style="color: #008080;">18</span>     <span style="color: #008000;">//</span><span style="color: #008000;">第二种删除</span>
+<span style="color: #008080;">19</span>     first =<span style="color: #000000;"> s.begin();
+</span><span style="color: #008080;">20</span>     second =<span style="color: #000000;"> s.begin();
+</span><span style="color: #008080;">21</span>     second++<span style="color: #000000;">;
+</span><span style="color: #008080;">22</span>     second++<span style="color: #000000;">;
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">    s.erase(first,second);
+</span><span style="color: #008080;">24</span>     <span style="color: #008000;">//</span><span style="color: #008000;">第三种删除</span>
+<span style="color: #008080;">25</span>     s.erase(<span style="color: #800080;">8</span><span style="color: #000000;">);
+</span><span style="color: #008080;">26</span>     cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">删除后 set 中元素是 ：</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">27</span>     <span style="color: #0000ff;">for</span>(iter = s.begin() ; iter != s.end() ; ++<span style="color: #000000;">iter)
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">29</span>         cout&lt;&lt;*iter&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">30</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">31</span>     cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">32</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">33</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</div>
+<p><span style="font-size: 15px;">运行结果：</span></p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081315230691.jpg" alt=""></p>
+<p><span style="font-size: 15px;"><span style="color: #ff0000;"><strong>小结：</strong></span>set中的删除操作是不进行任何的错误检查的，比如定位器的是否合法等等，所以用的时候自己一定要注意。</span></p>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 15px;"><strong>find()&nbsp;</strong> ，返回给定值值得定位器，如果没找到则返回end()。</span></p>
+<p><span style="font-size: 15px;">示例代码：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;fef2f203-18be-4a5b-85e4-fe6ceecb3556&#39;)"><img id="code_img_closed_fef2f203-18be-4a5b-85e4-fe6ceecb3556" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_fef2f203-18be-4a5b-85e4-fe6ceecb3556" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;fef2f203-18be-4a5b-85e4-fe6ceecb3556&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse" style="display: none;">View Code </span>
+<div id="cnblogs_code_open_fef2f203-18be-4a5b-85e4-fe6ceecb3556" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">int</span> a[] = {<span style="color: #800080;">1</span>,<span style="color: #800080;">2</span>,<span style="color: #800080;">3</span><span style="color: #000000;">};
+</span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt; s(a,a+<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator iter;
+</span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">if</span>((iter = s.find(<span style="color: #800080;">2</span>)) !=<span style="color: #000000;"> s.end())
+</span><span style="color: #008080;">12</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">13</span>         cout&lt;&lt;*iter&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">16</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</div>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 15px;"><strong>insert(key_value);</strong>&nbsp;将key_value插入到set中&nbsp;，返回值是pair&lt;set&lt;int&gt;::iterator,bool&gt;，bool标志着插入是否成功，而iterator代表插入的位置，若key_value已经在set中，则iterator表示的key_value在set中的位置。</span></p>
+<p><span style="font-size: 15px;"><strong>inset(first,second);</strong>将定位器first到second之间的元素插入到set中，返回值是void.</span></p>
+<p><span style="font-size: 15px;">示例代码：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;54065c1b-54e9-4268-ac06-04510adccaff&#39;)"><img id="code_img_closed_54065c1b-54e9-4268-ac06-04510adccaff" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_54065c1b-54e9-4268-ac06-04510adccaff" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;54065c1b-54e9-4268-ac06-04510adccaff&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span>
+<div id="cnblogs_code_open_54065c1b-54e9-4268-ac06-04510adccaff" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">int</span> a[] = {<span style="color: #800080;">1</span>,<span style="color: #800080;">2</span>,<span style="color: #800080;">3</span><span style="color: #000000;">};
+</span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator iter;
+</span><span style="color: #008080;">11</span>     s.insert(a,a+<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">12</span>     <span style="color: #0000ff;">for</span>(iter = s.begin() ; iter != s.end() ; ++<span style="color: #000000;">iter)
+</span><span style="color: #008080;">13</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">14</span>         cout&lt;&lt;*iter&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">16</span>     cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">17</span>     pair&lt;<span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;::iterator,<span style="color: #0000ff;">bool</span>&gt;<span style="color: #000000;"> pr;
+</span><span style="color: #008080;">18</span>     pr = s.insert(<span style="color: #800080;">5</span><span style="color: #000000;">);
+</span><span style="color: #008080;">19</span>     <span style="color: #0000ff;">if</span><span style="color: #000000;">(pr.second)
+</span><span style="color: #008080;">20</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">21</span>         cout&lt;&lt;*pr.first&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">23</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">24</span> }</pre>
+</div>
+</div>
+<p><span style="font-size: 15px;">运行结果：</span></p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081315541070.jpg" alt=""></p>
+<p>&nbsp;</p>
+<hr>
+<p><span style="font-size: 15px;"><strong>lower_bound(key_value)</strong> ，返回第一个大于等于key_value的定位器</span></p>
+<p><span style="font-size: 15px;"><strong>upper_bound(key_value)，</strong>返回最后一个大于等于key_value的定位器</span></p>
+<p><span style="font-size: 15px;">示例代码：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;51a01d3b-71d7-4498-bf29-5268b0c953df&#39;)"><img id="code_img_closed_51a01d3b-71d7-4498-bf29-5268b0c953df" class="code_img_closed" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_51a01d3b-71d7-4498-bf29-5268b0c953df" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;51a01d3b-71d7-4498-bf29-5268b0c953df&#39;,event)" src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse" style="display: none;">View Code </span>
+<div id="cnblogs_code_open_51a01d3b-71d7-4498-bf29-5268b0c953df" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> #include &lt;<span style="color: #0000ff;">set</span>&gt;
+<span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">set</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;"> s;
+</span><span style="color: #008080;"> 9</span>     s.insert(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">10</span>     s.insert(<span style="color: #800080;">3</span><span style="color: #000000;">);
+</span><span style="color: #008080;">11</span>     s.insert(<span style="color: #800080;">4</span><span style="color: #000000;">);
+</span><span style="color: #008080;">12</span>     cout&lt;&lt;*s.lower_bound(<span style="color: #800080;">2</span>)&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">13</span>     cout&lt;&lt;*s.lower_bound(<span style="color: #800080;">3</span>)&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">14</span>     cout&lt;&lt;*s.upper_bound(<span style="color: #800080;">3</span>)&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">16</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</div>
+<p><span style="font-size: 15px;">运行结果：</span></p>
+<p><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/2012081316162732.jpg" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+<p style="text-align: center;"><span style="font-family: 隶书; color: #ff6600; font-size: 18pt;"><strong>学习中的一点总结，欢迎拍砖哦^^</strong></span></p>
+<hr>
+<p>&nbsp;</p><iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/BeyondAnyTime/category/383523.html">STL</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/BeyondAnyTime/tag/set%E5%AE%B9%E5%99%A8/">set容器</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2636375,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/VincentCZW" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/BeyondAnyTime/" target="_blank"><img src="./STL中的set容器的一点总结 - VincentCZW - 博客园_files/20130721200108.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/BeyondAnyTime/">VincentCZW</a><br>
+<a href="http://home.cnblogs.com/u/BeyondAnyTime/followees">关注 - 8</a><br>
+<a href="http://home.cnblogs.com/u/BeyondAnyTime/followers">粉丝 - 232</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(2636375,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">7</span>
+    </div>
+	<div class="buryit" onclick="votePost(2636375,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/10/2631191.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/10/2631191.html" title="发布于2012-08-10 09:18">STL中的list容器的一点总结</a><br><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636963.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636963.html" title="发布于2012-08-13 21:00">C++中的模板那点事</a><br></div>
+</div>
+
+
+    </div>
+	<div class="itemdesc">
+		posted on <span id="post-date">2012-08-13 16:45</span> <a href="http://www.cnblogs.com/BeyondAnyTime/">VincentCZW</a> 阅读(<span id="post_view_count">31017</span>) 评论(<span id="post_comment_count">9</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2636375" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#" onclick="AddToWz(2636375);return false;">收藏</a>
+	</div>
+</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=116985,cb_entryId=2636375,cb_blogApp=currentBlogApp,cb_blogUserGuid='c966d7ad-c498-e111-aa3f-842b2b196315',cb_entryCreatedDate='2012/8/13 16:45:00';loadViewCount(cb_entryId);</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="评论"></a>
+<div class="moreinfo">
+	<div class="moreinfotitle">
+		Comments
+	</div>
+		
+	
+			<ul class="morelist">
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447727" class="layer">#1楼</a><a name="2447727" id="comment_anchor_2447727"></a>
+				</div>
+				<a id="a_comment_author_2447727" href="http://www.cnblogs.com/huoguofeng/" target="_blank">霍国峰</a> <a href="http://msg.cnblogs.com/send/%E9%9C%8D%E5%9B%BD%E5%B3%B0" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-13 17:46</span><br>
+				<div id="comment_body_2447727" class="blog_comment_body">我觉得还是map比较好。<a href="http://%2A%2A%2A/" target="_blank">5151团</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2447727,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2447727,&#39;Bury&#39;,this)">反对(1)</a></div><span id="comment_2447727_avatar" style="display:none;">http://pic.cnblogs.com/face/u42254.jpg?id=04134921</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447832" class="layer">#2楼</a><a name="2447832" id="comment_anchor_2447832"></a>
+				</div>
+				<a id="a_comment_author_2447832" href="http://www.cnblogs.com/baiyanhuang/" target="_blank">lzprgmr</a> <a href="http://msg.cnblogs.com/send/lzprgmr" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-13 21:40</span><br>
+				<div id="comment_body_2447832" class="blog_comment_body"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447727" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2447727);">@</a>霍国峰<br>set与map完全是用在不同的场景下的，说map比set好，就好像说螺丝刀比锤子好，到底哪个好？得看你是要敲钉子还是拔钉子</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2447832,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2447832,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2447832_avatar" style="display:none;">http://pic.cnblogs.com/face/u64551.jpg</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447837" class="layer">#3楼</a><a name="2447837" id="comment_anchor_2447837"></a>
+				</div>
+				<a id="a_comment_author_2447837" href="http://www.cnblogs.com/baiyanhuang/" target="_blank">lzprgmr</a> <a href="http://msg.cnblogs.com/send/lzprgmr" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-13 21:48</span><br>
+				<div id="comment_body_2447837" class="blog_comment_body">&gt;&gt;为何map和set的插入删除效率比用其他序列容器高？<br>应该改成“为何map和set的插入删除效率比用vector容器高？” 因为与list相比，map与set明显效率要低（O(1) vs O(lgn）)<br><br>&gt;&gt;count() 用来查找set中某个某个键值出现的次数<br>不理解stl为啥提供这么个积累的函数，要知道某个元素是否出现，find即可。可能是为了保持和multiset的一致性，但感觉没这个必要，又不是多态类</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2447837,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2447837,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2447837_avatar" style="display:none;">http://pic.cnblogs.com/face/u64551.jpg</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2448146" class="layer">#4楼</a><a name="2448146" id="comment_anchor_2448146"></a>[<span class="louzhu">楼主</span>]
+				</div>
+				<a id="a_comment_author_2448146" href="http://www.cnblogs.com/BeyondAnyTime/" target="_blank">VincentCZW</a> <a href="http://msg.cnblogs.com/send/VincentCZW" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-14 11:54</span><br>
+				<div id="comment_body_2448146" class="blog_comment_body"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447837" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2447837);">@</a>lzprgmr<br>在list中删除操作为什么是O(1)呢？不要先找到节点，再删除吗？？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448146,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448146,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2448146_avatar" style="display:none;">http://pic.cnblogs.com/face/406683/20130721200108.png</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2448148" class="layer">#5楼</a><a name="2448148" id="comment_anchor_2448148"></a>[<span class="louzhu">楼主</span>]
+				</div>
+				<a id="a_comment_author_2448148" href="http://www.cnblogs.com/BeyondAnyTime/" target="_blank">VincentCZW</a> <a href="http://msg.cnblogs.com/send/VincentCZW" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-14 11:55</span><br>
+				<div id="comment_body_2448148" class="blog_comment_body"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2447727" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2447727);">@</a>霍国峰<br><br>不可以说set就一定比map差呀，set也有自己的优势，希望你不是单纯的为了5151团发了个评论~~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448148,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448148,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2448148_avatar" style="display:none;">http://pic.cnblogs.com/face/406683/20130721200108.png</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2448635" class="layer">#6楼</a><a name="2448635" id="comment_anchor_2448635"></a>
+				</div>
+				<a id="a_comment_author_2448635" href="http://www.cnblogs.com/baiyanhuang/" target="_blank">lzprgmr</a> <a href="http://msg.cnblogs.com/send/lzprgmr" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2012-08-15 06:39</span><br>
+				<div id="comment_body_2448635" class="blog_comment_body"><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#2448146" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2448146);">@</a>BeyondAnyTime<br>这要看你是怎么定义这个erase函数的接口的：stl中的标准接口是直接传element的iterator(<a href="http://www.cplusplus.com/reference/stl/list/erase/" target="_blank">http://www.cplusplus.com/reference/stl/list/erase/</a>)，所以是常数，当然，如果你传一个value，那么是需要先查找后删除了。<br><br>对于set的删除（<a href="http://www.cplusplus.com/reference/stl/list/erase/" target="_blank">http://www.cplusplus.com/reference/stl/list/erase/</a>），我上面讲错了，删除一个元素其平摊时间还是O(1)的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448635,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448635,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2448635_avatar" style="display:none;">http://pic.cnblogs.com/face/u64551.jpg</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#3255414" class="layer">#7楼</a><a name="3255414" id="comment_anchor_3255414"></a>
+				</div>
+				<a id="a_comment_author_3255414" href="http://home.cnblogs.com/u/647123/" target="_blank">卡哇伊啊</a> <a href="http://msg.cnblogs.com/send/%E5%8D%A1%E5%93%87%E4%BC%8A%E5%95%8A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2015-08-27 15:09</span><br>
+				<div id="comment_body_3255414" class="blog_comment_body">就是说set的查找效率并不是O(1）了？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3255414,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3255414,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#3289057" class="layer">#8楼</a><a name="3289057" id="comment_anchor_3289057"></a>
+				</div>
+				<a id="a_comment_author_3289057" href="http://home.cnblogs.com/u/825533/" target="_blank">Interesting9301</a> <a href="http://msg.cnblogs.com/send/Interesting9301" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2015-10-21 12:29</span><br>
+				<div id="comment_body_3289057" class="blog_comment_body">有的地方说的是错误的，begin和end返回的不是元素而是迭代器，取末尾元素应该是*--s.end()，*s.end()是取不到的而且会报错。而且rbegin和rend的定义也不是那样，详情参考这里：<br>blog.csdn.net/kjing/article/details/6936325</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3289057,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3289057,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#3403640" class="layer">#9楼</a><a name="3403640" id="comment_anchor_3403640"></a><span id="comment-maxId" style="display:none;">3403640</span><span id="comment-maxDate" style="display:none;">2016/4/8 21:33:49</span>
+				</div>
+				<a id="a_comment_author_3403640" href="http://www.cnblogs.com/yuguangchuan/" target="_blank">JRSmith</a> <a href="http://msg.cnblogs.com/send/JRSmith" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2016-04-08 21:33</span><br>
+				<div id="comment_body_3403640" class="blog_comment_body">纠正一下定义：<br>lower_bound(key):返回第一个大于等于key的迭代器指针<br>upper_bound(key):返回第一个大于key的迭代器指针</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3403640,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3403640,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3403640_avatar" style="display:none;">http://pic.cnblogs.com/face/520267/20141112171129.png</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			</ul>
+		
+</div>
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/08/13/2636375.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/542945/" target="_blank">科研人员用废旧轮胎抵制寨卡病毒传播</a><br> ·  <a href="http://news.cnblogs.com/n/542944/" target="_blank">微软：Xbox One联动PS4在技术上已没有任何问题</a><br> ·  <a href="http://news.cnblogs.com/n/542943/" target="_blank">程序员欢呼：微软Bing开始支持搜索源码、可直接运行！</a><br> ·  <a href="http://news.cnblogs.com/n/542925/" target="_blank">月薪3000元的码农到首席架构师的经历</a><br> ·  <a href="http://news.cnblogs.com/n/542942/" target="_blank">Facebook押注的VR社交蓝图，在这些代码之下</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/542462/" target="_blank">我是一个线程</a><br> ·  <a href="http://kb.cnblogs.com/page/541862/" target="_blank">为什么未来是全栈工程师的世界？</a><br> ·  <a href="http://kb.cnblogs.com/page/541805/" target="_blank">程序bug导致了天大的损失，要枪毙程序猿吗？</a><br> ·  <a href="http://kb.cnblogs.com/page/541230/" target="_blank">如何运维千台以上游戏云服务器</a><br> ·  <a href="http://kb.cnblogs.com/page/539160/" target="_blank">架构漫谈（一）：什么是架构？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    
+<div class="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © VincentCZW
+</div>
+</div>
+
+
+
+</body></html>

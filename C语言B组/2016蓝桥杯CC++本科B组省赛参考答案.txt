@@ -1,0 +1,188 @@
+2016蓝桥杯C/C++本科B组省赛参考答案
+
+作者：	闫语畅
+版权：	闫语畅
+时间：	2016.March.21 
+授权：	仅限"中北ACM交流群"、"中北蓝桥杯"QQ群内部使用。 
+		如需转载请联系作者，未获授权转载则默认按照"每百字西文千元人民币"的标准向作者支付稿费。 
+
+
+1.	171700
+2.	26
+3.	215
+4.	swap(a,p,j)
+5.	f(a,k+1,m-i,b) 或 f(a,k+1,m-j,b)
+6.	1580
+7.	116
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//  8.四平方和 (C++11) 
+///////////////////////////////////////////////////////////////////////////////////////////////
+#include <cstdio>
+#include <cmath>
+
+int f[5];
+
+bool FIND( int depth, int min, int sum, int dst )
+{
+	if ( depth >= 3 )
+	{
+		int last = (int)ceil(sqrt(dst-sum));
+		if ( sum + last * last == dst )
+		{
+			f[3] = last;
+			return 1;
+		}
+		last--;
+		if ( sum + last * last == dst )
+		{
+			f[3] = last;
+			return 1;
+		}
+		return 0;
+	}
+	for ( int x=min; sum+x*x<=dst; x++ )
+	{
+		f[depth] = x;
+		if ( FIND( depth+1, x, sum+x*x, dst ) )
+			return 1;
+	}
+	return 0;
+}
+
+int main()
+{
+	int n;
+	scanf( "%d", &n );
+	FIND( 0, 0, 0, n );
+	for ( int i=0; i<4; i++ )
+		printf( "%d ", f[i] );
+	printf( "\n" );
+	return 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//  9.交换瓶子 (C++11) 
+///////////////////////////////////////////////////////////////////////////////////////////////
+#include <cstdio>
+
+int main()
+{
+	int n, ans = 0;
+	scanf( "%d", &n );
+	int *bottom = new int[n+1];
+	int *index  = new int[n+1];
+	for ( int i=1; i<=n; i++ )
+	{
+		scanf( "%d", bottom+i );
+		index[ bottom[i] ] = i;
+	}
+	
+	for ( int i=1; i<=n; i++ )
+	{
+		if ( index[i] != i )
+		{
+			bottom[ index[i] ] = bottom[i];
+			index[ bottom[i] ] = index [i];
+			ans++;
+		}
+	}
+	printf( "%d\n", ans );
+	
+	return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//  10.最大比例 (C++11)
+///////////////////////////////////////////////////////////////////////////////////////////////
+#include <cstdio>
+
+struct FR
+{
+	long long a;
+	long long b;
+};
+
+long long gcd( long long x, long long y )
+{
+	if ( x > y )
+		return gcd( y, x );
+	if ( y % x == 0 )
+		return x;
+	return gcd( y%x, x );
+}
+
+FR GCD( FR A, FR B )
+{
+	if ( A.a*B.b > A.b*B.a )
+		return GCD( B, A );
+	if ( (A.b*B.a) == (A.a*B.b) )
+	{
+		return A;
+	}
+	long long tmp1 = B.a * A.b;
+	long long tmp2 = B.b * A.a;
+	B.a = tmp1 / gcd(tmp1,tmp2);
+	B.b = tmp2 / gcd(tmp1,tmp2);
+	return GCD( B, A );
+}
+
+void Q_sort( long long s[], int left, int right )
+{
+	int l = left;
+	int r = right;
+	long long flag = s[ left + right >> 1 ];
+	while ( l <= r )
+	{
+		while ( s[l] > flag )
+			l++;
+		while ( s[r] < flag )
+			r--;
+		if ( l <= r )
+		{
+			long long tmp;
+			tmp = s[l]; s[l] = s[r]; s[r] = tmp;
+			l++; r--;
+		}
+	}
+	if ( left < r )
+		Q_sort( s, left, r );
+	if ( l < right )
+		Q_sort( s, l, right );
+}
+
+int main()
+{
+	int n;
+	scanf( "%d", &n );
+	long long *x = new long long[n+1];
+	for ( int i=0; i<n; i++ )
+		scanf( "%lld", x+i );
+	
+	Q_sort( x, 0, n-1 );
+	for ( int i=1; i<n; i++ )
+		if ( x[i] == x[i-1] )
+			x[i-1] = -1;
+	Q_sort( x, 0, n-1 );
+	
+	FR ans, tmp;
+	long long g;
+	ans.a = x[0] / gcd( x[0], x[1] );
+	ans.b = x[1] / gcd( x[0], x[1] );
+	
+	for ( int i=2; i<n && x[i]>0; i++ )
+	{
+		g = gcd(x[i-1],x[i]);
+		tmp.a = x[i-1] / g;
+		tmp.b = x[i  ] / g;
+		ans = GCD( ans, tmp );
+	}
+	printf( "%d/%d\n", ans.a, ans.b );
+	
+	return 0;
+}
+

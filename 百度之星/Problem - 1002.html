@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://bestcoder.hdu.edu.cn/contests/contest_showproblem.php?cid=690&pid=1002 -->
+<html class="no-js"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+		
+		<meta name="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="description" content="An online judge paltform for learning and judging c/c++/java/pascal program.">
+		<meta name="author" content="HDU ACM Team">
+		<link rel="shortcut icon" href="http://bestcoder.hdu.edu.cn/assets/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="./Problem - 1002_files/bootstrap.min.css">
+		<link rel="stylesheet" href="./Problem - 1002_files/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="./Problem - 1002_files/font-awesome.min.css">
+		<link rel="stylesheet" href="./Problem - 1002_files/katex.min.css">
+		<link rel="stylesheet" href="./Problem - 1002_files/mdeditor.css">
+		<link rel="stylesheet" href="./Problem - 1002_files/bestcoder.css">
+		<script src="./Problem - 1002_files/jquery-1.11.1.min.js"></script><style type="text/css"></style>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+	  		<script src="//acm.hdu.edu.cn/assets/js/html5shiv.min.js"></script>
+			<link href="//acm.hdu.edu.cn/assets/respond-proxy.html" id="respond-proxy" rel="respond-proxy">
+			<link href="//acm.hdu.edu.cn/assets/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+	  		<script src="//acm.hdu.edu.cn/assets/js/respond.min.js"></script>
+	  		<script src="//acm.hdu.edu.cn/assets/js/polyfill.js"></script>
+			<script type="text/x-mathjax-config">
+				MathJax.Hub.Config({
+					tex2jax: {inlineMath: [['$', '$']]},
+					messageStyle: "none"
+				});
+			</script>
+	  		<script src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<![endif]-->
+		<title>Problem - 1002</title>
+	<link rel="stylesheet" href="./Problem - 1002_files/default.css" type="text/css"></head>
+	<body>
+		<a name="top"></a>
+		<div class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">navigation switch</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand hidden-sm" href="http://bestcoder.hdu.edu.cn/"><img src="./Problem - 1002_files/bestcoder.png" alt="BestCoder"></a>
+                    <a class="navbar-brand visible-sm" href="http://bestcoder.hdu.edu.cn/"><img src="./Problem - 1002_files/sublogo.png" alt="BestCoder"></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+			    		<li class="hidden-sm hidden-xs"><a href="http://bestcoder.hdu.edu.cn/">Home</a></li>
+			    		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_list.php">Contests</a></li>
+			    		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_notification.php?cid=690">Notification</a></li>
+			      		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_listtopic.php?cid=690">Clarification</a></li>
+			      		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_show.php?cid=690">Problems</a></li>
+			      		<li><a href="http://bestcoder.hdu.edu.cn/contests/ranklist.php?cid=690">Ranklist</a></li>
+			      		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_status.php?cid=690">Status</a></li>
+			      		<li><a href="http://bestcoder.hdu.edu.cn/contests/contest_hackstatus.php?cid=690">HackStatus</a></li>
+			    	</ul>
+			    	<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+					    <li class="pull-right countdown" style=""><span class="hour">35</span> : <span class="minute">46</span> : <span class="second">13</span></li>
+			    	</ul>
+			    </div>
+			</div>
+		</div><div class="container"><div class="progress progress-striped active" style="display: none;"><div class="progress-bar progress-bar-success"><span></span></div></div></div>
+		<div class="container">
+	<div id="problem-info">
+		<h1>Problem B</h1>
+		<div class="problem-statistic">
+			<span class="fa fa-check text-success"></span> Accepts: 0		</div>
+		<div class="problem-statistic">
+			<span class="fa fa-bar-chart text-info"></span> Submissions: 4		</div>
+		<div>
+			<div class="problem-statistic">
+				<span class="fa fa-clock-o"></span> Time Limit: 2000/1000 MS (Java/Others)
+			</div>
+			<div class="problem-statistic">
+				<span class="fa fa-th-large"></span> Memory Limit: 65536/65536 K (Java/Others)
+			</div>
+					</div>
+	</div>
+	<div class="problem">
+		<div class="problem-widget">
+			<div class="problem-widget-title">Problem Description</div>
+			<div class="problem-widget-content markdown marked"><p>度熊面前有一个全是由1构成的字符串，被称为全1序列。你可以合并任意相邻的两个1，从而形成一个新的序列。对于给定的一个全1序列，请计算根据以上方法，可以构成多少种不同的序列。</p>
+<iframe id="tmp_downloadhelper_iframe" style="display: none;" src="./Problem - 1002_files/saved_resource.html"></iframe></div>
+		</div>
+		<div class="problem-widget">
+			<div class="problem-widget-title">Input</div>
+			<div class="problem-widget-content markdown marked"><p>这里包括多组测试数据，每组测试数据包含一个正整数<span><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height: 0.68333em;"></span><span class="strut bottom" style="height: 0.68333em; vertical-align: 0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right: 0.10903em;">N</span></span></span></span></span>，代表全1序列的长度。</p>
+<p><span><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>≤</mo><mi>N</mi><mo>≤</mo><mn>2</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">1\leq N \leq 200</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height: 0.68333em;"></span><span class="strut bottom" style="height: 0.8193em; vertical-align: -0.13597em;"></span><span class="base textstyle uncramped"><span class="mord">1</span><span class="mrel">≤</span><span class="mord mathit" style="margin-right: 0.10903em;">N</span><span class="mrel">≤</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span></p>
+</div>
+		</div>
+		<div class="problem-widget">
+			<div class="problem-widget-title">Output</div>
+			<div class="problem-widget-content markdown marked"><p>对于每组测试数据，输出一个整数，代表由题目中所给定的全1序列所能形成的新序列的数量。</p>
+</div>
+		</div>
+		<div class="problem-widget">
+			<div class="problem-widget-title">Sample Input</div>
+			<div class="problem-widget-content clipboard"><button class="copy" data-clipboard-target="#simple-input-data">Copy</button><pre id="simple-input-data">1
+3
+5
+</pre></div>
+		</div>
+		<div class="problem-widget">
+			<div class="problem-widget-title">Sample Output</div>
+			<div class="problem-widget-content clipboard"><button class="copy" data-clipboard-target="#simple-output-data">Copy</button><pre id="simple-output-data">1
+3
+8
+
+<div class="hint"><div class="hint-head">Hint</div>
+如果序列是：(111)。可以构造出如下三个新序列：(111), (21), (12)。
+</div></pre></div>
+		</div>
+		<div class="problem-footer">
+			<a href="http://bestcoder.hdu.edu.cn/contests/contest_statistic.php?cid=690&amp;pid=1002">Statistic</a> | <a href="http://bestcoder.hdu.edu.cn/contests/contest_submit.php?cid=690&amp;pid=1002">Submit</a> | <a href="http://bestcoder.hdu.edu.cn/contests/contest_listtopic.php?cid=690">Clarifications</a> | <a href="http://bestcoder.hdu.edu.cn/contests/contest_showproblem.php?cid=690&amp;pid=1002#" class="go-back">Back</a>
+		</div>
+	</div>
+</div>
+        <div class="footer">
+             <div class="version">BestCoder Contest System 2.0</div>
+             <div class="copyright">Copyright &#169; 2014-2016 <a href="mailto:hduacm@qq.com">HDU ACM Team</a></div>
+        </div>
+        <script src="./Problem - 1002_files/jquery.cookie.js"></script>
+        <script src="./Problem - 1002_files/bootstrap.min.js"></script>
+        <script src="./Problem - 1002_files/marked.min.js"></script>
+        <script src="./Problem - 1002_files/katex.min.js"></script>
+        <script src="./Problem - 1002_files/auto-render.min.js"></script>
+        <script src="./Problem - 1002_files/highlight.min.js"></script>
+        <script src="./Problem - 1002_files/clipboard.min.js"></script>
+        <script src="./Problem - 1002_files/bestcoder.js"></script><ul id="message-box" class="list-group" style="display: none;"><li class="list-group-item list-group-header"><span>2016"百度之星" - 资格赛（Astar Round1）</span><button type="button" class="close" data-dismiss="#message-box">×</button></li><li class="list-group-item">2016"百度之星" - 资格赛（Astar Round1） Start.<span class="time">12:00</span></li></ul>
+        <script type="text/javascript">
+            setTimeout(function () {
+                getMsg(690);
+            }, 1000);
+        </script>
+    
+
+</body></html>

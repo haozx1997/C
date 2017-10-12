@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MaxVertexNum 12  
+#define MaxEdgeNum 20     
+#define MaxValue 1000 
+   
+typedef int Vertextype;                             
+typedef int adjmatrix[MaxVertexNum][MaxVertexNum];  
+typedef Vertextype vexlist[MaxVertexNum];         
+int visited[MaxVertexNum]={0};                      
+struct edgeElem 
+{
+	int fromvex;    
+ 	int  endvex;      
+ 	int weight;     
+};  
+
+typedef struct edgeElem edgeset[MaxVertexNum]; 
+
+void Creat_adjmatrix(vexlist GV,adjmatrix GA,int n,int e)   
+{
+	int i,j,k,w;  
+	printf("输入%d个顶点数据",n); 
+	for(i=0;i<n;i++)      
+	scanf("%d",&GV[i]);  
+	for(i=0;i<n;i++)     
+		for(j=0;j<n;j++)
+        	if(i==j) 
+				GA[i][j]=0;  
+         	else 
+			 GA[i][j]=MaxValue;  
+	printf("输入%d条无向带权边",e);  
+ 	for(k=0;k<e;k++)                  
+	{	 
+		scanf("%d%d%d",&i,&j,&w);   
+ 		GA[i][j]=GA[j][i]=w; 
+ 	}
+ }
+
+
+void output_edgeset(edgeset GE,int e) 
+{
+	int k;
+	for(k=0;k<e;k++) 
+  	printf("From %d To %d: %d\n",GE[k].fromvex,GE[k].endvex,GE[k].weight); 
+	printf("\n"); 
+ } 
+
+void prim(adjmatrix GA,edgeset CT,int a,int n)  
+{
+	int i,j,t,k,w,min,m; 
+	struct edgeElem x; 
+	for(i=0;i<n;i++) 
+		if(i<a)    
+   		{	
+		   CT[i].fromvex=a;  
+		   CT[i].endvex=i;   
+		   CT[i].weight=GA[a][i];   
+ 		} 
+		else if(i>a)  
+  		{
+		  CT[i-1].fromvex=a; 
+ 		  CT[i-1].endvex=i;  
+          CT[i-1].weight=GA[a][i]; 
+        } 
+    for(k=1;k<n;k++)
+    {     
+        min=MaxValue;    
+        m=k-1;     
+        for(j=k-1;j<n-1;j++)       
+           if(CT[j].weight<min)
+		   {
+		   min=CT[j].weight;
+		   m=j;
+		   } 
+        x=CT[k-1];
+		CT[k-1]=CT[m];
+		CT[m]=x;      
+        j=CT[k-1].endvex; 
+    	for(i=k;i<n-1;i++) 
+    	{
+	    	t=CT[i].endvex;w=GA[j][t];   
+   			if(w<CT[i].weight)   
+   			{
+			   CT[i].weight=w;
+   		   	   CT[i].fromvex=j;     
+  			}   
+  		} 
+	}
+ }  
+
+int main() 
+{
+	int n,e; 
+	vexlist GV;   
+	adjmatrix GA; 
+	edgeset GE;  
+	printf("输入图的顶点数和边数：");
+	scanf("%d%d",&n,&e); 
+	Creat_adjmatrix( GV, GA, n, e);  
+	printf("利用prim算法从0点出发求图的最小生成树：\n");
+	prim(GA,GE,0,n); 
+	output_edgeset( GE, n-1); 
+	system("pause"); 
+}
+

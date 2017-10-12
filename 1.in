@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MaxVertexNum 12  
+#define MaxEdgeNum 20 /*最大边数*/    
+#define MaxValue 1000 
+   
+typedef int Vertextype;      /*定义定点元素类型*/                       
+typedef int adjmatrix[MaxVertexNum][MaxVertexNum];  /*定义adjmatrix为储存邻接矩阵的数组类型*/
+typedef Vertextype vexlist[MaxVertexNum];  /*定义vexlist为储存顶点信息的数组类型*/       
+int visited[MaxVertexNum]={0}; /*访问最大结点*/                     
+struct edgeElem 
+{
+	int fromvex;   /*定义起点域*/ 
+ 	int  endvex;     /*定义终点域*/ 
+ 	int weight;    /*定义权重*/ 
+};  
+
+typedef struct edgeElem edgeset[MaxVertexNum];/*定义边结点*/ 
+
+void Creat_adjmatrix(vexlist GV,adjmatrix GA,int n,int e)  /*顶点数据n,无向带权边e*/ 
+{
+	int i,j,k,w;  
+	printf("输入%d个顶点数据",n); 
+	for(i=0;i<n;i++)     /*输入多个顶点*/ 
+	scanf("%d",&GV[i]);  
+	for(i=0;i<n;i++)    /*循环输入数据进顶点数组*/ 
+		for(j=0;j<n;j++)
+        	if(i==j) 
+				GA[i][j]=0;  
+         	else 
+			 GA[i][j]=MaxValue;  
+	printf("输入%d条无向带权边",e);  
+ 	for(k=0;k<e;k++)                 /*输入无向带权边*/ 
+	{	 
+		scanf("%d%d%d",&i,&j,&w);   
+ 		GA[i][j]=GA[j][i]=w;/*邻接矩阵*/ 
+ 	}
+ }
+
+
+void output_edgeset(edgeset GE,int e) /*最后输出生成树边的数据 */
+{
+	int k;
+	for(k=0;k<e;k++) 
+  	printf("From %d To %d: %d\n",GE[k].fromvex,GE[k].endvex,GE[k].weight); 
+	printf("\n");/*输出最小生成树路径*/ 
+ } 
+
+void prim(adjmatrix GA,edgeset CT,int a,int n) /*编写生成最小生成树的Prim算法函数*/ 
+{
+	int i,j,t,k,w,min,m; 
+	struct edgeElem x; 
+	for(i=0;i<n;i++) //从第0个顶点开始
+		if(i<a)    
+   		{	
+		   CT[i].fromvex=a;  
+		   CT[i].endvex=i;   
+		   CT[i].weight=GA[a][i];   
+ 		} 
+		else if(i>a)  //从a点连接其余顶点(即从0连接其余顶点，主函数调用a为0)
+  		{
+		  CT[i-1].fromvex=a; //起点域赋值为0                                                                                                   
+ 		  CT[i-1].endvex=i;  //终点域赋值为i 
+          CT[i-1].weight=GA[a][i]; //权重赋值 
+        } 
+    for(k=1;k<n;k++)
+    {     
+        min=MaxValue;    
+        m=k-1;     
+        for(j=k-1;j<n-1;j++)       
+           if(CT[j].weight<min)
+		   {
+		   min=CT[j].weight;
+		   m=j;
+		   } //选择从0点出发权值最小的边  
+        x=CT[k-1];
+		CT[k-1]=CT[m];
+		CT[m]=x;      //交换位置 
+        j=CT[k-1].endvex; //定位于权值最小边的尾顶点
+    	for(i=k;i<n-1;i++) //选取轻边
+    	{
+	    	t=CT[i].endvex;w=GA[j][t];   
+   			if(w<CT[i].weight)   
+   			{
+			   CT[i].weight=w;
+   		   	   CT[i].fromvex=j;     
+  			}   
+  		} 
+	}
+ }  
+
+int main()/*主函数*/ 
+{
+	int n,e; 
+	vexlist GV;   //顶点表
+	adjmatrix GA; //边表
+	edgeset GE;  //最小生成树 
+	printf("输入图的顶点数和边数：");
+	scanf("%d%d",&n,&e); 
+	Creat_adjmatrix( GV, GA, n, e);  //创建图
+	printf("利用prim算法从0点出发求图的最小生成树：\n");
+	prim(GA,GE,0,n); //生成最小生成树
+	output_edgeset( GE, n-1); 
+	system("pause"); 
+}
+
